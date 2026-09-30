@@ -1,0 +1,12 @@
+name = "planos2026-telemetria"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[observability]
+enabled = false
+
+[[d1_databases]]
+binding = "DB"
+database_name = "planos2026"
+database_id = "7ee2fcc1-0c05-43fb-b5dd-b2f38efbe94c"
