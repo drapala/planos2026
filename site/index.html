@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f2ed" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#161c1b" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="Explore escolhas difíceis, entenda suas prioridades e compare propostas com os autores ocultos até você decidir revelá-los.">
+  <title>Entre escolhas — planos anônimos</title>
+  <style>:root{color-scheme:light dark;--bg:#f4f2ed;--card:#fffefa;--ink:#242a29;--muted:#5d645f;--line:#dcded6;--accent:#245f50;--soft:#e9efe8;--warm:#855335;--warm-soft:#f4ece3;--focus:#265dcc;--pad:16px;--radius:16px;--safe-b:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root{--bg:#161c1b;--card:#1e2725;--ink:#edf1e9;--muted:#b2beb6;--line:#3c4b44;--accent:#b9d8b8;--soft:#2c3e33;--warm:#e4bc99;--warm-soft:#3b3028;--focus:#a7c6ff}}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;overflow-wrap:anywhere}
+button,input,select,textarea{font:inherit}
+button,a,summary{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button{cursor:pointer;color:inherit}
+a{color:var(--accent);text-underline-offset:3px}
+button:disabled{cursor:not-allowed;opacity:.45}
+button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:2rem;font-weight:400;line-height:1.15;letter-spacing:-.03em}
+h2{font-size:1.3rem;line-height:1.25;letter-spacing:-.02em}
+h3{font-size:1.05rem;line-height:1.4}
+p+p{margin-top:12px}
+
+/* estrutura */
+.site-header,main{max-width:1060px;margin:auto}
+.site-header{display:flex;align-items:center;gap:10px;padding:14px var(--pad);padding-top:max(14px,env(safe-area-inset-top));font-weight:650;font-size:1rem}
+.brand-mark{width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:1.4rem;display:grid;place-items:center;flex:none}
+.brand-sub{display:block;font-size:.6rem;letter-spacing:.14em;color:var(--muted)}
+main{padding:4px var(--pad) calc(32px + var(--safe-b));min-height:70vh}
+.eyebrow{color:var(--accent);font-size:.72rem;letter-spacing:.1em;font-weight:750;text-transform:uppercase}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+.lead{font-size:1.05rem;color:var(--muted);max-width:64ch;margin-top:16px}
+.card{padding:20px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card)}
+.stack>*+*{margin-top:16px}
+.top-space{margin-top:18px}
+
+/* botões */
+.button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:1px solid var(--line);border-radius:12px;padding:10px 18px;background:var(--card);text-decoration:none;font-weight:600;font-size:.95rem;text-align:center}
+.button.primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.button.quiet{background:transparent}
+.button.small-button{padding:7px 12px;min-height:44px;font-size:.85rem}
+.actions{display:flex;flex-direction:column;gap:10px}
+.actions>.button,.actions>a{width:100%}
+.pill{border:1px solid var(--line);border-radius:999px;padding:10px 16px;background:var(--card);font-size:.9rem;min-height:48px}
+.pill[aria-pressed=true]{border-color:var(--accent);background:var(--soft);color:var(--accent);font-weight:600}
+
+/* abertura */
+.hero{padding:24px 20px}
+.hero h1{margin-top:14px}
+.hero-layout{display:grid;gap:24px}
+.intro-preview{display:none;padding:24px;background:var(--soft);border-radius:18px;transform:rotate(2deg)}
+.intro-preview .quote{font:1.6rem/1.25 Georgia,serif;margin:14px 0}
+.mini-choice{border-top:1px solid var(--line);padding:12px 0;font-size:.92rem}
+.mini-choice b{display:block}
+.intro-grid{display:grid;gap:14px;margin:24px 0}
+.intro-grid b{display:block;margin-bottom:4px}
+.intro-grid p{font-size:.92rem;color:var(--muted)}
+
+/* pergunta */
+.step-meta{display:flex;justify-content:space-between;gap:12px;font-size:.78rem;color:var(--muted)}
+.progress{height:5px;border-radius:3px;background:var(--line);margin:10px 0 18px;overflow:hidden}
+.progress div{height:100%;background:var(--accent)}
+.question-head h1{font-size:1.75rem;margin:10px 0 14px}
+.scenario-notice{display:block;width:fit-content;margin-top:8px;padding:4px 9px;border:1px solid var(--line);border-radius:6px;font-size:.72rem;color:var(--muted);letter-spacing:0;text-transform:none;font-weight:400}
+.context{max-width:70ch}
+.constraint{margin-top:14px;padding:12px 14px;border-left:3px solid var(--warm);background:var(--warm-soft);border-radius:0 10px 10px 0;font-size:.95rem}
+.changed{margin:14px 0;padding:14px;border:1px dashed var(--accent);border-radius:12px;background:var(--soft)}
+.question-prompt{font-weight:650;font-size:1.05rem;margin:20px 0 12px}
+.choices{display:grid;gap:12px}
+.choice{width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:var(--radius);text-align:left;padding:18px 16px;display:flex;flex-direction:column;gap:12px;transition:border-color .12s,background .12s}
+.choice.selected{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:var(--soft)}
+.choice-top{display:flex;align-items:flex-start;gap:12px}
+.choice-letter{display:grid;place-items:center;flex:0 0 30px;height:30px;border:1px solid var(--line);border-radius:50%;font-size:.8rem;font-weight:700}
+.selected .choice-letter{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+.choice-title{font-weight:650;line-height:1.35;font-size:1.05rem;padding-top:2px}
+.choice-action{font-size:.98rem}
+.tradeoff{padding-top:10px;border-top:1px solid var(--line);font-size:.95rem}
+.tradeoff.cost{margin-top:auto}
+.tradeoff-label{display:block;color:var(--accent);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;font-weight:750;margin-bottom:4px}
+.tradeoff.cost .tradeoff-label{color:var(--warm)}
+fieldset{border:0;padding:0;margin:0}
+legend{padding:0;font-size:.92rem;font-weight:600}
+.confidence{margin-top:16px;padding:4px 0}
+.confidence .actions{flex-direction:row;margin-top:10px}
+.confidence .pill{flex:1}
+.uncertainty{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.answer-help{min-height:24px;color:var(--muted);font-size:.88rem;margin-top:10px}
+.nav{position:sticky;bottom:0;z-index:5;display:flex;gap:10px;margin:18px calc(-1 * var(--pad)) 0;padding:12px var(--pad) calc(12px + var(--safe-b));background:var(--bg);border-top:1px solid var(--line)}
+.nav .button{flex:1}
+.nav .button.primary{flex:2}
+
+/* resultado */
+.result-hero h1{margin-top:12px;font-size:1.9rem}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 12px;border-top:1px solid var(--line);padding-top:18px;margin-top:20px}
+.stat strong{font:1.8rem/1.2 Georgia,serif;display:block}
+.stat span{font-size:.82rem;color:var(--muted)}
+.section-head{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.section-head h2+p{margin-top:8px}
+.section-head>.button{align-self:flex-start}
+.badge{display:inline-block;border:1px solid var(--line);border-radius:6px;padding:3px 8px;font-size:.72rem;color:var(--muted);font-weight:500}
+.badge.accent{background:var(--soft);border-color:var(--soft);color:var(--accent)}
+.badge.warm{background:var(--warm-soft);border-color:var(--warm-soft);color:var(--warm)}
+.ranking{display:grid;gap:10px}
+.rank-card{border:1px solid var(--line);border-radius:14px;padding:16px;display:grid;grid-template-columns:1fr auto;gap:0 16px}
+.rank-card.leading{border-color:var(--accent);background:var(--soft)}
+.rank-top{grid-column:1/3;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.plan-letter{font:1.4rem Georgia,serif}
+.plan-name{font-weight:650;margin-top:8px;font-size:1rem}
+.rank-number{grid-column:2;grid-row:2/4;align-self:center;font:2.4rem/1.1 Georgia,serif;margin:6px 0}
+.rank-number small{font-size:1.1rem}
+.rank-card .meter,.rank-card .small{grid-column:1/3}
+.meter{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:12px 0 10px}
+.meter>span{display:block;height:100%;background:var(--accent)}
+.notice{padding:14px 16px;background:var(--soft);border-radius:12px;font-size:.92rem}
+.notice p+p{margin-top:8px}
+.filterbar{display:flex;gap:8px;margin:16px calc(-1 * 20px);padding:0 20px 4px;overflow-x:auto;scrollbar-width:none}
+.filterbar::-webkit-scrollbar{display:none}
+.filterbar .pill{flex:none}
+.response-list{display:grid;gap:8px}
+.response-row{border:1px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden}
+.response-row summary{cursor:pointer;padding:14px 12px;min-height:56px;display:flex;align-items:center;gap:10px;list-style:none}
+.response-row summary::-webkit-details-marker{display:none}
+.response-row summary:after{content:'+';margin-left:auto;flex:none;font-size:1.4rem;color:var(--muted)}
+.response-row[open] summary:after{content:'−'}
+.row-index{color:var(--muted);font-size:.72rem;min-width:22px}
+.row-title{font-size:.95rem;font-weight:650}
+.row-subtitle{display:block;font-size:.84rem;font-weight:400;color:var(--muted);margin-top:2px}
+.response-content{padding:0 12px 16px}
+.your-choice{padding:14px;background:var(--soft);border-radius:10px;font-size:.92rem}
+.your-choice strong{display:block;margin-bottom:5px}
+.positions{display:grid;gap:8px;margin-top:14px}
+.position{border:1px solid var(--line);border-radius:10px;padding:14px;font-size:.9rem}
+.position strong{display:block;margin:8px 0 4px}
+.position p{color:var(--muted);margin-bottom:10px}
+.position .button{width:100%}
+.scenario-grid{display:grid;gap:12px}
+.value-card{border:1px solid var(--line);border-radius:14px;padding:16px}
+.value-card h3{margin:8px 0 10px}
+.value-card .priority{font:1.2rem/1.4 Georgia,serif;color:var(--accent);margin:10px 0}
+.value-card .accepted-cost{border-top:1px solid var(--line);padding-top:12px;margin-top:12px;font-size:.9rem;color:var(--muted)}
+.variation{background:var(--soft);border-radius:10px;padding:12px;margin-top:14px;font-size:.88rem}
+.method{font-size:.92rem;color:var(--muted)}
+.method summary{cursor:pointer;font-weight:650;color:var(--ink);min-height:44px;display:flex;align-items:center}
+.method ol{padding-left:20px}
+.method li+li{margin-top:8px}
+.method p{margin-top:12px}
+.empty{border:1px dashed var(--line);border-radius:12px;padding:18px;color:var(--muted)}
+.pending-list{display:grid;gap:8px;margin:18px 0}
+.pending-list .button{justify-content:space-between;text-align:left}
+.copy-area{width:100%;min-height:150px;background:var(--card);color:var(--ink);padding:14px;border:1px solid var(--line);border-radius:10px}
+.copy-feedback{font-size:.88rem;color:var(--accent);margin-top:10px}
+
+/* janela da fonte: folha de baixo no celular */
+dialog{color:var(--ink);background:var(--card);border:1px solid var(--line);padding:20px var(--pad) calc(20px + var(--safe-b));width:100%;max-width:100%;max-height:88vh;margin:auto 0 0;border-radius:20px 20px 0 0;box-shadow:0 -8px 30px #0003;overflow-y:auto}
+dialog::backdrop{background:#10191499;backdrop-filter:blur(3px)}
+.dialog-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:16px}
+.dialog-head h2{font-size:1.2rem}
+.source-quote{font:1.1rem/1.6 Georgia,serif;padding:16px;margin:16px 0;background:var(--soft);border-left:3px solid var(--accent);border-radius:0 10px 10px 0}
+.source-text{font:.85rem/1.7 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;background:var(--bg);padding:14px;border-radius:8px;margin-top:12px}
+.source-meta{font-size:.8rem;color:var(--muted)}
+h1[tabindex="-1"]:focus,h2[tabindex="-1"]:focus,main:focus{outline:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.skip-link{position:fixed;top:-100px;left:12px;padding:10px;background:var(--card);z-index:10}
+.skip-link:focus{top:10px}
+.noscript{padding:24px;max-width:800px;margin:auto}
+
+/* tablet */
+@media(min-width:640px){
+  :root{--pad:24px;--radius:20px}
+  h1{font-size:2.6rem}
+  h2{font-size:1.6rem}
+  .site-header{padding:22px var(--pad)}
+  .card{padding:28px}
+  .hero{padding:36px}
+  .actions{flex-direction:row;flex-wrap:wrap;align-items:center}
+  .actions>.button,.actions>a{width:auto}
+  .intro-grid{grid-template-columns:repeat(3,1fr);gap:20px}
+  .question-head h1{font-size:2.2rem}
+  .scenario-notice{display:inline-block;margin:0 0 0 8px}
+  .choices{grid-template-columns:1fr 1fr;gap:16px}
+  .choice{padding:22px}
+  .choice:hover{border-color:var(--accent)}
+  .uncertainty{display:flex;flex-wrap:wrap}
+  .confidence .pill{flex:none}
+  .nav{position:static;margin:22px 0 0;padding:20px 0 0;background:none}
+  .nav .button,.nav .button.primary{flex:none}
+  .nav{justify-content:space-between}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .section-head{flex-direction:row;align-items:flex-start;justify-content:space-between}
+  .section-head>.button{flex:none}
+  .filterbar{flex-wrap:wrap;overflow:visible;margin:20px 0;padding:0}
+  .positions{grid-template-columns:repeat(3,1fr)}
+  .scenario-grid{grid-template-columns:1fr 1fr}
+  .response-row summary{padding:16px 18px;gap:14px}
+  .response-content{padding:0 20px 22px}
+  dialog{width:calc(100% - 48px);max-width:720px;margin:auto;border-radius:20px;padding:28px}
+}
+
+/* desktop */
+@media(min-width:920px){
+  h1{font-size:3.6rem}
+  .hero{padding:46px}
+  .hero h1{max-width:13ch}
+  .hero-layout{grid-template-columns:1.15fr .85fr;gap:46px;align-items:center}
+  .intro-preview{display:block}
+  .question-head h1{font-size:2.6rem;max-width:28ch}
+  .result-hero h1{font-size:3rem;max-width:22ch}
+  .ranking{grid-template-columns:repeat(3,1fr);gap:14px}
+  .rank-card{display:block;padding:20px}
+  .rank-number{font-size:2.9rem;margin:14px 0 3px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#app">Ir para o conteúdo</a>
+  <header class="site-header"><span class="brand-mark" aria-hidden="true">↗</span><span>entre escolhas<span class="brand-sub">PLANOS ANÔNIMOS · 2026</span></span></header>
+  <main id="app" tabindex="-1"></main>
+  <dialog id="evidence-dialog" aria-labelledby="evidence-title"></dialog>
+  <p id="live-status" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+  <noscript><p class="noscript">Ative o JavaScript para responder. Os textos dos planos também estão disponíveis nos arquivos plano_A.txt, plano_B.txt e plano_C.txt.</p></noscript>
+  <script>
+  const DATA = {"version": 3, "candidates": [{"key": "lula", "code": "A", "name": "Lula", "party": "PT", "file": "lula.txt", "anonymousFile": "plano_A.txt"}, {"key": "flavio", "code": "B", "name": "Flávio Bolsonaro", "party": "PL", "file": "flavio.txt", "anonymousFile": "plano_B.txt"}, {"key": "renan", "code": "C", "name": "Renan Santos", "party": "Missão", "file": "renan.txt", "anonymousFile": "plano_C.txt"}], "items": [{"id": "p_jornada", "kind": "proposal", "theme": "Trabalho", "title": "Quem decide as horas de trabalho?", "context": "Hoje a lei permite até 44 horas de trabalho por semana. Uma nova lei pode baixar esse limite para todos, ou cada empresa pode combinar os horários com seus trabalhadores.", "constraint": "Uma regra igual para todos protege também quem tem pouca força para negociar. Mas as empresas com rotinas diferentes precisam se reorganizar.", "question": "Como você prefere decidir as horas de trabalho?", "options": {"a": {"title": "Lei com limite menor", "action": "Uma nova lei baixa o limite para 40 horas por semana, sem cortar o salário.", "benefit": "Você pode ganhar mais tempo de descanso. Quem tem pouca força para negociar pode ficar mais protegido.", "cost": "Cada funcionário pode ficar mais caro para a empresa. Pequenos negócios podem contratar menos, demitir ou até fechar. Os preços podem subir.", "value": "Mesma proteção para todos"}, "b": {"title": "Horas combinadas", "action": "Trabalhador e empresa combinam as horas de trabalho entre si, sempre dentro do que a lei permite.", "benefit": "Você pode ter horários que combinam melhor com o seu tipo de serviço e com a sua vida.", "cost": "Quem tem pouca força para negociar pode aceitar horários piores e jornadas mais longas, dentro do limite da lei. Pode sobrar menos tempo para a família.", "value": "Liberdade para combinar"}}, "positions": {"lula": {"status": "explicit", "side": "a", "quote": "Manteremos nossa ação junto ao Senado Federal para assegurar o fim da escala 6x1 e a redução da jornada de trabalho para 40 horas, sem redução salarial, nos termos aprovados na Câmara dos Deputados.", "source": {"file": "lula.txt", "start": 2835, "end": 2837, "excerpt": "Manteremos nossa ação junto ao Senado Federal para assegurar o fim da escala\n6x1 e a redução da jornada de trabalho para 40 horas, sem redução salarial, nos\ntermos aprovados na Câmara dos Deputados.", "page": 75}, "reason": "Propõe expressamente reduzir a jornada para 40 horas sem redução salarial."}, "flavio": {"status": "explicit", "side": "b", "quote": "Vamos também dar mais liberdade a quem trabalha, com jornada flexível que caiba na vida de mães, jovens e de quem tem mais dificuldade de entrar no mercado. Por isso defendemos o negociado sobre o legislado, ou seja, permitir que trabalhador e empresa combinem diretamente as condições de trabalho que funcionam para os dois, dentro da lei, em vez de seguir uma regra única imposta a todos. Quando as duas partes negociam pensando em ganhos mútuos, cresce a qualidade do emprego, crescem as empresas e crescem as oportunidades.", "source": {"file": "flavio.txt", "start": 1672, "end": 1679, "excerpt": "Vamos também dar mais liberdade a quem trabalha, com jornada flexível que\ncaiba na vida de mães, jovens e de quem tem mais dificuldade de entrar no\nmercado. Por isso defendemos o negociado sobre o legislado, ou seja, permitir\nque trabalhador e empresa combinem diretamente as condições de trabalho\nque funcionam para os dois, dentro da lei, em vez de seguir uma regra única\nimposta a todos. Quando as duas partes negociam pensando em ganhos\nmútuos, cresce a qualidade do emprego, crescem as empresas e crescem as\noportunidades.", "page": 44}, "reason": "Defende jornada flexível e negociação direta; a comparação se limita ao modo de definir a jornada."}, "renan": {"status": "mixed", "side": null, "quote": "teor do texto ainda é marcado pela adesão a pilares do pensamento liberal, em especial no aspecto econômico (fala-se de contenção de gastos, de reforma trabalhista para flexibilizar relações de trabalho, de redução de supersalários, de reforma administrativa e de austeridade fiscal), mas rejeitamos a versão vulgarizada que oferecia panaceias e falava vagamente em desburocratização e privatizações, por considerá-la aquém dos problemas brasileiros.", "source": {"file": "renan.txt", "start": 212, "end": 216, "excerpt": "teor do texto ainda é marcado pela adesão a pilares do pensamento liberal, em especial no aspecto econômico\n(fala-se de contenção de gastos, de reforma trabalhista para flexibilizar relações de trabalho, de redução de\nsupersalários, de reforma administrativa e de austeridade fiscal), mas rejeitamos a versão vulgarizada que\noferecia panaceias e falava vagamente em desburocratização e privatizações, por considerá-la aquém dos\nproblemas brasileiros.", "page": 5}, "reason": "A defesa geral de flexibilizar relações de trabalho não define a jornada nem a redução para 40 horas."}}}, {"id": "p_regra_fiscal", "kind": "proposal", "theme": "Contas do governo", "title": "Mudar a regra de gastos?", "context": "O governo federal segue uma regra de gastos. Essa regra diz quanto os gastos podem crescer a cada ano e ajuda a controlar a dívida.", "constraint": "Mudar a regra pode corrigir limites, mas abre uma nova discussão sobre onde gastar.", "question": "O próximo governo deve mudar ou manter a regra de gastos atual?", "options": {"a": {"title": "Mudar a regra", "action": "O governo muda a regra de gastos que existe hoje.", "benefit": "Se a nova regra segurar a dívida do governo, os juros podem cair. Financiar casa ou carro pode ficar mais barato.", "cost": "Por um tempo, pode ficar difícil saber quanto o governo vai gastar. Essa dúvida pode fazer os juros subirem.", "value": "Rever as contas"}, "b": {"title": "Manter a regra", "action": "O governo mantém a regra de gastos atual para controlar as despesas.", "benefit": "Quem depende de programas e obras pode continuar recebendo. As contas do governo podem ficar mais previsíveis.", "cost": "Os problemas da regra atual continuam. Se a dívida seguir crescendo, os juros podem ficar altos e programas podem ser cortados.", "value": "Estabilidade nas contas"}}, "positions": {"lula": {"status": "explicit", "side": "b", "quote": "vamos criar as condições para uma redução sustentada das taxas de juros, com inflação controlada e assegurando uma política fiscal responsável. Para isso, manteremos o novo arcabouço fiscal, que controlou o crescimento das despesas sem prejudicar as políticas sociais e permitiu uma redução significativa do déficit primário.", "source": {"file": "lula.txt", "start": 1789, "end": 1793, "excerpt": "vamos criar as condições para uma redução sustentada das taxas de juros, com\ninflação controlada e assegurando uma política fiscal responsável. Para isso,\nmanteremos o novo arcabouço fiscal, que controlou o crescimento das despesas\nsem prejudicar as políticas sociais e permitiu uma redução significativa do déficit\nprimário.", "page": 49}, "reason": "O texto diz que manterá o novo arcabouço fiscal."}, "flavio": {"status": "explicit", "side": "a", "quote": "Vamos fazer o oposto: faremos nossos gastos caberem no orçamento, o que permitirá cobrar menos impostos e não empurrará dívida para as próximas gerações. Apresentaremos uma reformulação nas atuais regras fiscais, com regras claras focadas na estabilização e na redução da dívida pública conforme determina a Constituição. Vamos construir o equilíbrio fiscal duradouro, entregando superávits primários e limitando o crédito subsidiado com recursos do Tesouro, mitigando pressões inflacionárias. E haverá uma regra clara de controle de gastos discricionários dos três Poderes da União.", "source": {"file": "flavio.txt", "start": 2723, "end": 2730, "excerpt": "Vamos fazer o oposto: faremos nossos gastos caberem no orçamento, o que\npermitirá cobrar menos impostos e não empurrará dívida para as próximas\ngerações. Apresentaremos uma reformulação nas atuais regras fiscais, com\nregras claras focadas na estabilização e na redução da dívida pública\nconforme determina a Constituição. Vamos construir o equilíbrio fiscal\nduradouro, entregando superávits primários e limitando o crédito subsidiado\ncom recursos do Tesouro, mitigando pressões inflacionárias. E haverá uma\nregra clara de controle de gastos discricionários dos três Poderes da União.", "page": 71}, "reason": "Propõe reformular as regras atuais. Isso não equivale a atribuir a ele a mesma reforma detalhada de outro texto."}, "renan": {"status": "explicit", "side": "a", "quote": "Essas propostas já deverão estar presentes no nosso projeto de PEC de Transição, que terá por objetivo substituir o arcabouço fiscal por um novo modelo mais inteligente.", "source": {"file": "renan.txt", "start": 395, "end": 397, "excerpt": "do superávit financeiro, a reforma do funcionalismo público com fim dos supersalários, mudanças nas emendas parlamentares, redução das isenções fiscais e uma nova lei complementar das finanças públicas. Essas\npropostas já deverão estar presentes no nosso projeto de PEC de Transição, que terá por objetivo substituir o\narcabouço fiscal por um novo modelo mais inteligente.", "page": 10}, "reason": "Propõe substituir o arcabouço; esta pergunta compara apenas mudança ou manutenção da regra."}}}, {"id": "p_renda", "kind": "proposal", "theme": "Ajuda do governo", "title": "Dinheiro mensal ou vaga de trabalho?", "context": "Hoje o governo federal paga um dinheiro mensal a famílias pobres. Uma proposta troca esse dinheiro por trabalho pago em serviços públicos para quem tem idade de trabalhar.", "constraint": "O trabalho pago liga a ajuda a uma tarefa. Mas isso só funciona se houver vagas suficientes perto de quem precisa.", "question": "Que tipo de ajuda você prefere para quem tem idade de trabalhar?", "options": {"a": {"title": "Trabalho pago pelo governo", "action": "O governo troca o dinheiro mensal por vagas de trabalho pago em serviços públicos, para quem tem idade de trabalhar.", "benefit": "Quem participa pode ganhar experiência de trabalho. O bairro pode ganhar serviços úteis.", "cost": "Quem não consegue uma vaga pode ficar sem essa ajuda. A família pode ficar sem dinheiro para comida e contas.", "value": "Ajuda ligada ao trabalho"}, "b": {"title": "Manter o dinheiro mensal", "action": "O governo mantém os programas que pagam dinheiro mensal às famílias pobres.", "benefit": "A família pode continuar com uma renda garantida mesmo quando não existe vaga de trabalho.", "cost": "O dinheiro sozinho pode não ajudar a pessoa a arrumar emprego. Ela pode continuar sem experiência e sem renda maior.", "value": "Renda garantida"}}, "positions": {"lula": {"status": "explicit", "side": "b", "quote": "O combate às desigualdades requer justiça tributária, fortalecimento do Estado de bem-estar social, valorização do salário-mínimo, inclusão produtiva, educação, saúde, programas eficientes de transferência de renda. Por isso, devemos manter, aperfeiçoar e ampliar as políticas de proteção social para quem mais necessita.", "source": {"file": "lula.txt", "start": 614, "end": 617, "excerpt": "O combate às desigualdades requer justiça tributária, fortalecimento do Estado\nde bem-estar social, valorização do salário-mínimo, inclusão produtiva, educação,\nsaúde, programas eficientes de transferência de renda. Por isso, devemos manter,\naperfeiçoar e ampliar as políticas de proteção social para quem mais necessita.", "page": 18}, "reason": "Defende manter, aperfeiçoar e ampliar a proteção social, incluindo transferências de renda."}, "flavio": {"status": "explicit", "side": "b", "quote": "Por isso, o compromisso é claro e vem em primeiro lugar: vamos manter os programas sociais existentes, com aperfeiçoamento da gestão, correção de distorções e combate às fraudes. Quem depende hoje da ajuda do Estado para pôr comida na mesa não vai ter essa ajuda tirada. Ponto.", "source": {"file": "flavio.txt", "start": 1616, "end": 1619, "excerpt": "Por isso, o compromisso é claro e vem em primeiro lugar: vamos manter os\nprogramas sociais existentes, com aperfeiçoamento da gestão, correção de\ndistorções e combate às fraudes. Quem depende hoje da ajuda do Estado para\npôr comida na mesa não vai ter essa ajuda tirada. Ponto.", "page": 42}, "reason": "Promete manter os programas existentes. Incentivos à qualificação não são tratados aqui como trabalho obrigatório."}, "renan": {"status": "explicit", "side": "a", "quote": "O capítulo 5, “Produtividade pela Cidadania”, elenca uma série de reformas microeconômicas e regulatórias que podem destravar o nosso crescimento, com destaque para a reforma do assistencialismo e a substituição do Bolsa Família por frentes de trabalho remuneradas para a população em idade economicamente ativa.", "source": {"file": "renan.txt", "start": 250, "end": 251, "excerpt": "economia; um salto qualitativo nos serviços públicos. O capítulo 5, “Produtividade pela Cidadania”, elenca\numa série de reformas microeconômicas e regulatórias que podem destravar o nosso crescimento, com destaque para a reforma do assistencialismo e a substituição do Bolsa Família por frentes de trabalho remuneradas para a população em idade economicamente ativa.", "page": 6}, "reason": "Propõe expressamente a substituição para a população em idade economicamente ativa."}}}, {"id": "p_cotas", "kind": "proposal", "theme": "Oportunidades iguais", "title": "Cotas raciais no serviço público?", "context": "Hoje uma parte das vagas no serviço público fica reservada para candidatos negros, indígenas e quilombolas. Os demais candidatos disputam as vagas da lista geral.", "constraint": "A cota muda quem entra no serviço público. Mas sobram menos vagas para a lista geral.", "question": "Você manteria as cotas raciais no serviço público?", "options": {"a": {"title": "Acabar com as cotas", "action": "O governo acaba com a reserva de vagas por raça no serviço público, nos concursos e nos cargos de chefia.", "benefit": "Todos os candidatos podem disputar a mesma lista, pela mesma nota.", "cost": "Menos pessoas negras, indígenas e quilombolas podem entrar no serviço público.", "value": "Mesma lista para todos"}, "b": {"title": "Manter as cotas", "action": "O governo mantém a reserva de vagas por raça no serviço público, nos concursos e nos cargos de chefia.", "benefit": "Pode continuar entrando no serviço público mais gente de grupos que há muito tempo ocupam poucos cargos.", "cost": "Um candidato com nota maior pode ficar sem vaga. O governo precisa checar quem tem direito à cota.", "value": "Corrigir desigualdades"}}, "positions": {"lula": {"status": "explicit", "side": "b", "quote": "As políticas de fomento à participação da população negra no funcionalismo público, especialmente nos espaços superiores da gestão governamental, terão continuidade, alinhadas à política de cotas no serviço público que aprimoramos no atual mandato.", "source": {"file": "lula.txt", "start": 647, "end": 650, "excerpt": "Estado. As políticas de fomento à participação da população negra no\nfuncionalismo público, especialmente nos espaços superiores da gestão\ngovernamental, terão continuidade, alinhadas à política de cotas no serviço\npúblico que aprimoramos no atual mandato.", "page": 19}, "reason": "Afirma a continuidade das políticas de participação da população negra alinhadas às cotas no serviço público."}, "flavio": {"status": "absent", "side": null, "quote": "", "source": null, "reason": "Não foi localizada uma proposta sobre manter ou abolir cotas raciais no serviço público; ausência não significa oposição ou apoio."}, "renan": {"status": "explicit", "side": "a", "quote": "Abolir o sistema de cotas na educação brasileira e em geral.", "source": {"file": "renan.txt", "start": 1178, "end": 1178, "excerpt": "4 Abolir o sistema de cotas na educação brasileira e em geral.", "page": 32}, "reason": "A proposta de abolir cotas é formulada para a educação e em geral, abrangendo a medida perguntada."}}}, {"id": "p_redes", "kind": "proposal", "theme": "Internet", "title": "Novas regras contra notícias falsas?", "context": "Nas redes sociais circulam informações úteis, mas também notícias falsas e ataques de ódio. Novas regras precisam dizer quem responde pelo problema e quem decide o que é proibido.", "constraint": "Novas regras podem diminuir os danos. Mas regras mal escritas podem punir quem só deu sua opinião.", "question": "Você apoia novas leis contra notícias falsas nas redes sociais?", "options": {"a": {"title": "Criar novas regras", "action": "Uma nova lei cria mais regras para as redes sociais e aplicativos, para combater notícias falsas.", "benefit": "As empresas das redes podem responder mais pelos danos. Menos mentiras podem se espalhar.", "cost": "Postagens verdadeiras e opiniões podem ser apagadas por engano. Quem critica o governo pode ficar com medo de falar.", "value": "Redes com mais responsabilidade"}, "b": {"title": "Ficar com as leis atuais", "action": "Nenhuma lei nova é criada para isso. Os abusos continuam sendo tratados pelas leis e pela Justiça que já existem.", "benefit": "Opiniões e informações podem continuar sem o risco de uma lei nova apagar por engano.", "cost": "Mentiras e golpes podem continuar se espalhando rápido. Quem é atacado pode esperar muito tempo pela Justiça.", "value": "Liberdade para falar"}}, "positions": {"lula": {"status": "explicit", "side": "a", "quote": "É parte da reafirmação da democracia avançar ainda mais na regulação democrática das redes sociais e das plataformas digitais, de modo a impedir que elas difundam desinformação, acolham campanhas de ódio e outras formas de comunicação nocivas para a democracia. Nenhuma democracia sobrevive sem uma opinião pública plural e sem a garantia plena da liberdade de expressão.", "source": {"file": "lula.txt", "start": 470, "end": 474, "excerpt": "É parte da reafirmação da democracia avançar ainda mais na regulação\ndemocrática das redes sociais e das plataformas digitais, de modo a impedir que\nelas difundam desinformação, acolham campanhas de ódio e outras formas de\ncomunicação nocivas para a democracia. Nenhuma democracia sobrevive sem\numa opinião pública plural e sem a garantia plena da liberdade de expressão.", "page": 16}, "reason": "Defende expressamente avançar na regulação das redes para combater desinformação e campanhas de ódio."}, "flavio": {"status": "mixed", "side": null, "quote": "Vamos fazer um Tesouraço da Censura: acabar com qualquer estrutura estatal que funcione como um “Ministério da Verdade\", encarregada de vigiar, rotular ou punir o que as pessoas dizem.", "source": {"file": "flavio.txt", "start": 2560, "end": 2563, "excerpt": "Vamos fazer um Tesouraço da Censura: acabar com qualquer estrutura estatal\nque funcione como um “Ministério da Verdade\", encarregada de vigiar, rotular\nou punir o que as pessoas dizem. E vamos revogar todos os atos que o atual\ngoverno produziu para silenciar seus críticos, para que a censura já praticada", "page": 66}, "reason": "A proposta combate estruturas descritas como censura. Isso não prova rejeição a toda nova regra para plataformas."}, "renan": {"status": "mixed", "side": null, "quote": "6 Oposição firme a quaisquer propostas de regulação da mídia e da internet que reduzam a margem de liberdade de expressão no Brasil, sem descurar da necessidade de discutir um novo código de imprensa, em lugar da lei reguladora da imprensa que não foi recepcionada pela Constituição Federal de 1988.", "source": {"file": "renan.txt", "start": 1065, "end": 1067, "excerpt": "6 Oposição firme a quaisquer propostas de regulação da mídia e da internet que reduzam a margem de\n\nliberdade de expressão no Brasil, sem descurar da necessidade de discutir um novo código de imprensa, em lugar da lei reguladora da imprensa que não foi recepcionada pela Constituição Federal de 1988.", "page": 29}, "reason": "Rejeita regulação que reduza a liberdade de expressão e propõe discutir um código de imprensa; não resolve a escolha geral desta pergunta."}}}, {"id": "p_cultura", "kind": "proposal", "theme": "Organização do governo", "title": "Cultura e Educação no mesmo ministério?", "context": "Hoje a Cultura e a Educação têm cada uma o seu ministério. O governo pode manter os dois separados ou juntar os dois em um só.", "constraint": "Juntar pode aproximar as duas áreas. Mas os dois assuntos passam a disputar a atenção do mesmo ministro.", "question": "Você juntaria os ministérios da Cultura e da Educação?", "options": {"a": {"title": "Manter separados", "action": "O governo mantém o Ministério da Cultura separado do Ministério da Educação.", "benefit": "A cultura pode continuar com um ministro que cuida só dela.", "cost": "O governo pode gastar mais com duas estruturas. Esse dinheiro pode faltar para escolas e eventos culturais.", "value": "Atenção só para a cultura"}, "b": {"title": "Juntar os dois", "action": "O governo junta o Ministério da Cultura com o Ministério da Educação.", "benefit": "Escola, arte e patrimônio podem ser planejados juntos. O governo pode evitar trabalho repetido.", "cost": "Festas populares, museus e artistas podem perder dinheiro. A educação pode ficar com a maior parte do orçamento.", "value": "As duas áreas planejadas juntas"}}, "positions": {"lula": {"status": "mixed", "side": null, "quote": "O governo Lula reposicionou a cultura, restabelecendo o diálogo com a sociedade e fortalecendo a cooperação federativa. A recriação do Ministério da Cultura foi um dos passos fundamentais para reafirmar a cultura como um direito fundamental e vetor do desenvolvimento econômico e social. Aprovamos a Lei do Sistema Nacional de Cultura e modernizamos todos os instrumentos de fomento. Os recursos para financiar as atividades culturais nunca foram tão expressivos.", "source": {"file": "lula.txt", "start": 1460, "end": 1465, "excerpt": "O governo Lula reposicionou a cultura, restabelecendo o diálogo com a sociedade\ne fortalecendo a cooperação federativa. A recriação do Ministério da Cultura foi\num dos passos fundamentais para reafirmar a cultura como um direito fundamental\ne vetor do desenvolvimento econômico e social. Aprovamos a Lei do Sistema\nNacional de Cultura e modernizamos todos os instrumentos de fomento. Os\nrecursos para financiar as atividades culturais nunca foram tão expressivos.", "page": 40}, "reason": "Valoriza a recriação do Ministério da Cultura, mas o trecho não formula uma decisão futura sobre a fusão específica."}, "flavio": {"status": "mixed", "side": null, "quote": "que a paga. Um Estado bem gerido custa menos e serve melhor. Daremos continuidade à reforma administrativa que já colocamos em discussão, para modernizar o funcionamento do Estado e a carreira do servidor. E faremos uma ampla revisão normativa infralegal, na gestão pública e nas áreas tributária, previdenciária e trabalhista, que elimine o excesso de regras que trava a economia e encarece a máquina. Isso inclui o corte de no mínimo 10 ministérios,", "source": {"file": "flavio.txt", "start": 2628, "end": 2634, "excerpt": "que a paga. Um Estado bem gerido custa menos e serve melhor. Daremos\ncontinuidade à reforma administrativa que já colocamos em discussão, para\nmodernizar o funcionamento do Estado e a carreira do servidor. E faremos\numa ampla revisão normativa infralegal, na gestão pública e nas áreas\ntributária, previdenciária e trabalhista, que elimine o excesso de regras que\ntrava a economia e encarece a máquina. Isso inclui o corte de no mínimo 10\nministérios,", "page": 69}, "reason": "Propõe cortar ministérios, sem identificar Cultura e Educação como as pastas a fundir."}, "renan": {"status": "explicit", "side": "b", "quote": "Também propomos uma medida inspirada nos governos mais enxutos da direita: a fusão de Ministério da Cultura e Ministério da Educação, mas com o objetivo de obter maior integração entre estas duas dimensões da formação nacional.", "source": {"file": "renan.txt", "start": 1017, "end": 1018, "excerpt": "Também propomos uma medida inspirada nos governos mais enxutos da direita: a fusão de Ministério\nda Cultura e Ministério da Educação, mas com o objetivo de obter maior integração entre estas duas dimensões da formação nacional.", "page": 28}, "reason": "Propõe expressamente a fusão entre Cultura e Educação."}}}, {"id": "p_reeleicao", "kind": "proposal", "theme": "Eleições", "title": "Presidente pode se reeleger?", "context": "Hoje o presidente pode se candidatar de novo logo depois do primeiro mandato. Assim o eleitor pode manter um governo que aprovou, mas o presidente faz campanha enquanto governa.", "constraint": "Proibir a reeleição obriga a trocar de presidente. Permitir a reeleição deixa o eleitor manter quem aprovou, mas quem governa sai na frente.", "question": "Você acabaria com a reeleição para presidente?", "options": {"a": {"title": "Acabar com a reeleição", "action": "Uma mudança na Constituição proíbe a reeleição para Presidente da República.", "benefit": "O presidente pode ter menos motivo para usar o cargo para fazer campanha.", "cost": "Você não pode votar de novo no mesmo presidente logo em seguida, mesmo se gostou do governo.", "value": "Troca de presidente"}, "b": {"title": "Manter a reeleição", "action": "A reeleição para Presidente da República continua permitida.", "benefit": "Você pode votar de novo em um presidente que fez um bom governo.", "cost": "Quem já está no cargo pode sair na frente na campanha e tomar decisões pensando no voto.", "value": "O eleitor escolhe"}}, "positions": {"lula": {"status": "absent", "side": null, "quote": "", "source": null, "reason": "Não foi localizada uma proposta de manter ou encerrar a reeleição presidencial; uma candidatura ou referência a novo mandato não substitui essa posição."}, "flavio": {"status": "explicit", "side": "a", "quote": "E propomos o fim da reeleição para o cargo de Presidente da República. Ao contrário do PT, o nosso projeto é de país, não de poder. Já existe uma PEC protocolada no Senado Federal com essa proposta, de autoria do senador e futuro presidente do Brasil, Flávio Bolsonaro.", "source": {"file": "flavio.txt", "start": 2548, "end": 2551, "excerpt": "E propomos o fim da reeleição para o cargo de Presidente da República. Ao\ncontrário do PT, o nosso projeto é de país, não de poder. Já existe uma PEC\nprotocolada no Senado Federal com essa proposta, de autoria do senador e\nfuturo presidente do Brasil, Flávio Bolsonaro.", "page": 66}, "reason": "Propõe expressamente o fim da reeleição para Presidente da República."}, "renan": {"status": "absent", "side": null, "quote": "", "source": null, "reason": "Não foi localizada uma proposta sobre manter ou encerrar a reeleição presidencial; crítica a um candidato não define esta regra."}}}, {"id": "p_beneficios", "kind": "proposal", "theme": "Aposentadoria e ajuda social", "title": "Como aumentar aposentadorias e ajudas?", "context": "Hoje muitas aposentadorias e ajudas sociais sobem junto com o salário mínimo. Outra opção é aumentar esses valores só pela inflação, para repor os preços.", "constraint": "A regra de aumento muda quanto a pessoa consegue comprar. Também muda quanto dinheiro sobra no orçamento do governo para outras coisas.", "question": "Qual regra você prefere para as aposentadorias e ajudas que hoje seguem o salário mínimo?", "options": {"a": {"title": "Seguir o salário mínimo", "action": "As regras continuam iguais: essas aposentadorias e ajudas seguem ligadas ao salário mínimo.", "benefit": "Quando o salário mínimo sobe acima da inflação, quem recebe pode ganhar esse aumento também.", "cost": "Os gastos do governo podem crescer mais rápido. Pode sobrar menos para saúde, escola e obras, ou os impostos podem subir.", "value": "Ganhar junto com o mínimo"}, "b": {"title": "Só repor a inflação", "action": "Uma mudança nas regras separa essas aposentadorias e ajudas do salário mínimo e aumenta os valores só pela inflação.", "benefit": "Os gastos do governo podem ficar mais previsíveis e sobrar mais dinheiro para outras áreas.", "cost": "Aposentados e quem recebe ajuda podem ter um aumento menor que o do salário mínimo. Com o tempo, o valor fica mais distante do mínimo.", "value": "Folga no orçamento"}}, "positions": {"lula": {"status": "mixed", "side": null, "quote": "Estamos comprometidos com o fortalecimento e a ampliação do acesso à Previdência Social, garantidora de direitos e proteção de renda. Com a política de valorização do salário-mínimo, elevamos o poder de compra de aposentados e pensionistas.", "source": {"file": "lula.txt", "start": 2903, "end": 2906, "excerpt": "Estamos comprometidos com o fortalecimento e a ampliação do acesso à\nPrevidência Social, garantidora de direitos e proteção de renda. Com a política de\nvalorização do salário-mínimo, elevamos o poder de compra de aposentados e\npensionistas. Estamos enfrentando as filas do INSS, e diminuindo o tempo de", "page": 77}, "reason": "Valoriza a proteção previdenciária e os ganhos anteriores ligados ao salário mínimo, mas não explicita a regra futura de indexação de todos os benefícios perguntados."}, "flavio": {"status": "absent", "side": null, "quote": "", "source": null, "reason": "Não foi localizada uma proposta específica para manter ou retirar a vinculação ao salário mínimo; a defesa de controle de gastos não permite inferi-la."}, "renan": {"status": "explicit", "side": "b", "quote": "a chamada “PEC do Equilíbrio Fiscal”, que promove a desindexação de benefícios previdenciários e assistenciais do salário mínimo (corrigindo-os apenas pela inflação),", "source": {"file": "renan.txt", "start": 384, "end": 389, "excerpt": "O primeiro ato de um governo da Missão, na verdade a ser endereçado mesmo antes da posse, será a\naprovação de uma PEC de Transição, como a promovida por Lula em 2022. No nosso caso, a PEC de\nTransição deverá utilizar como base um projeto já protocolado por nosso deputado Kim Kataguiri em 2024,\na chamada “PEC do Equilíbrio Fiscal”, que promove a desindexação de benefícios previdenciários e assistenciais do salário mínimo (corrigindo-os apenas pela inflação), a desvinculação dos pisos de saúde e educação\nda receita, a revisão do abono salarial e a redução de renúncias fiscais (gastos tributários), com economia\nprojetada de R$ 1,1 trilhão até 2031.", "page": 10}, "reason": "Propõe desindexar benefícios previdenciários e assistenciais do salário mínimo e corrigi-los apenas pela inflação."}}}, {"id": "p_licenca", "kind": "proposal", "theme": "Meio ambiente e obras", "title": "Obra liberada se o governo não responde?", "context": "Uma empresa entrega todos os papéis para pedir a licença ambiental de uma obra. O órgão ambiental não dá a resposta dentro do prazo.", "constraint": "Liberar a obra evita que a demora trave o investimento. Mas a obra pode começar antes de os técnicos terminarem a análise.", "question": "Se o órgão ambiental não responder no prazo, a obra deve ser liberada?", "options": {"a": {"title": "Liberar depois do prazo", "action": "O governo dá a licença se a empresa cumpriu as exigências e o órgão não respondeu no prazo.", "benefit": "As obras podem atrasar menos. Quem entregou os papéis pode saber quando vai começar.", "cost": "Uma obra perigosa pode começar antes do fim da análise. Ela pode poluir um rio ou colocar moradores em risco.", "value": "Prazo certo para quem investe"}, "b": {"title": "Esperar a resposta", "action": "A licença só sai com uma resposta do órgão ambiental, mesmo quando o prazo já passou.", "benefit": "A obra pode começar só depois que os técnicos terminarem de analisar os riscos.", "cost": "Obras que cumpriram as exigências podem ficar paradas. Os empregos da obra podem demorar a chegar, e a obra pode ficar mais cara.", "value": "Análise ambiental antes"}}, "positions": {"lula": {"status": "absent", "side": null, "quote": "", "source": null, "reason": "Não foi localizada uma proposta sobre concessão de licença pelo silêncio do órgão; compromisso ambiental geral não define esse mecanismo."}, "flavio": {"status": "explicit", "side": "a", "quote": "dois lados. Quando o empreendedor cumpre a lei e apresenta tudo o que a norma exige, o órgão responsável deve ter um prazo definido para concluir a análise. Se não decidir nem se manifestar dentro desse prazo, a licença deve ser concedida, porque a demora do Estado não pode ser um castigo para quem fez a sua parte. A responsabilidade de analisar continua sendo do poder público, mas a inércia deixa de ser uma forma de travar quem quer investir e gerar emprego.", "source": {"file": "flavio.txt", "start": 1855, "end": 1861, "excerpt": "\fdois lados. Quando o empreendedor cumpre a lei e apresenta tudo o que a\nnorma exige, o órgão responsável deve ter um prazo definido para concluir a\nanálise. Se não decidir nem se manifestar dentro desse prazo, a licença deve\nser concedida, porque a demora do Estado não pode ser um castigo para\nquem fez a sua parte. A responsabilidade de analisar continua sendo do poder\npúblico, mas a inércia deixa de ser uma forma de travar quem quer investir e\ngerar emprego.", "page": 50}, "reason": "Define expressamente a concessão caso o órgão não decida nem se manifeste no prazo após o cumprimento das exigências."}, "renan": {"status": "mixed", "side": null, "quote": "▪ redução radical da burocracia mediante agências administrativas ágeis (one-stop shops) com aprovação de licenças em até 15 dias;", "source": {"file": "renan.txt", "start": 1326, "end": 1329, "excerpt": "▪ estímulos fiscais por meio de suspensão de direitos aduaneiros e de regime específico de IBS/CBS para\na zona (LC 214/2025);\n▪ redução radical da burocracia mediante agências administrativas ágeis (one-stop shops) com aprovação\nde licenças em até 15 dias;", "page": 35}, "reason": "Propõe licenças em prazo curto e simplificação, mas não diz que o silêncio concede a licença."}}}]};
+  const QuizCore = (() => {
+  const sides = new Set(['a', 'b']);
+  const MIN_BASE = 3;
+  function validAnswer(answer) {
+    if (!answer || typeof answer !== 'object') return false;
+    if (answer.choice === 'undecided' || answer.choice === 'info') return true;
+    return sides.has(answer.choice) && ['lean', 'strong'].includes(answer.confidence);
+  }
+  function decided(answer) {
+    return validAnswer(answer) && sides.has(answer.choice);
+  }
+  function progress(items, responses) {
+    const summary = { answered: 0, decided: 0, undecided: 0, info: 0, missing: [] };
+    for (const item of items) {
+      const answer = responses[item.id];
+      if (!validAnswer(answer)) { summary.missing.push(item.id); continue; }
+      summary.answered++;
+      if (decided(answer)) summary.decided++;
+      else summary[answer.choice]++;
+    }
+    return summary;
+  }
+  function position(item, key) {
+    if (item.kind === 'proposal') return item.positions?.[key];
+    if (item.kind === 'scenario' && !item.baseId) return item.valuePositions?.[key];
+    return undefined;
+  }
+  function comparable(item, key) {
+    const p = position(item, key);
+    return p?.status === 'explicit' && sides.has(p.side);
+  }
+  function eligible(item, candidates) {
+    return candidates.length > 0 && candidates.every(c => comparable(item, c.key));
+  }
+  function compare(data, responses) {
+    const answered = data.items.filter(i => decided(responses[i.id]));
+    const ranking = data.candidates.map(c => {
+      const base = answered.filter(i => comparable(i, c.key));
+      const same = base.filter(i => position(i, c.key).side === responses[i.id].choice);
+      const part = kind => {
+        const b = base.filter(i => i.kind === kind);
+        return { matches: b.filter(i => same.includes(i)).length, total: b.length };
+      };
+      return {
+        key: c.key, matches: same.length, total: base.length,
+        score: (same.length + 1) / (base.length + 2),
+        percent: Math.round(100 * (same.length + 1) / (base.length + 2)),
+        proposals: part('proposal'), values: part('scenario'),
+        ids: base.map(i => i.id), sameIds: same.map(i => i.id),
+      };
+    }).sort((a, b) => b.score - a.score || b.total - a.total);
+    const sufficient = ranking.length > 0 && ranking.every(r => r.total >= MIN_BASE);
+    const top = ranking[0]?.score;
+    const leaders = sufficient ? ranking.filter(r => r.score === top).map(r => r.key) : [];
+    const differentiating = answered.filter(i => {
+      const found = data.candidates.filter(c => comparable(i, c.key)).map(c => position(i, c.key).side);
+      return found.length > 1 && new Set(found).size > 1;
+    }).length;
+    const comparableIds = answered.filter(i => data.candidates.some(c => comparable(i, c.key))).map(i => i.id);
+    return { ranking, leaders, sufficient, minBase: MIN_BASE, differentiating, comparableIds, total: comparableIds.length };
+  }
+  function variation(item, responses) {
+    const before = responses[item.baseId], after = responses[item.id];
+    if (!decided(after)) return 'open';
+    if (!decided(before)) return 'resolved';
+    return before.choice === after.choice ? 'kept' : 'changed';
+  }
+  return { validAnswer, decided, progress, position, comparable, eligible, compare, variation };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = QuizCore;
+
+  let idx = -1;
+const resp = {};
+let screen = 'intro', revealed = false, editing = false, filter = 'all';
+const app = document.getElementById('app');
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const proposals = DATA.items.filter(i => i.kind === 'proposal');
+const cases = DATA.items.filter(i => i.kind === 'scenario' && !i.baseId);
+const findItem = id => DATA.items.find(i => i.id === id);
+const candidate = key => DATA.candidates.find(c => c.key === key);
+const planName = c => revealed ? `${c.name} (${c.party})` : `Plano ${c.code}`;
+const button = (text, action, extra = '', primary = false) => `<button type="button" class="button${primary ? ' primary' : ''}" data-action="${action}" ${extra}>${text}</button>`;
+function focusMain() { app.querySelector?.('h1')?.focus?.({preventScroll:true}); window.scrollTo(0, 0); }
+function announce(message) { const live = document.getElementById('live-status'); if (live) live.textContent = message; }
+function answerLabel(item, answer) {
+  if (!QuizCore.validAnswer(answer)) return 'Pendente';
+  if (answer.choice === 'undecided') return 'Não consigo escolher';
+  if (answer.choice === 'info') return 'Faltam informações';
+  return item.options[answer.choice].title;
+}
+function confidenceLabel(answer) { return answer?.confidence === 'strong' ? 'Com convicção' : 'Com ressalvas'; }
+function intro() {
+  screen = 'intro'; idx = -1; editing = false;
+  app.innerHTML = `<section class="card hero"><div class="hero-layout"><div>
+    <p class="eyebrow">Quiz dos planos de governo 2026</p><h1 tabindex="-1">Toda escolha tem um lado bom e um lado ruim.</h1>
+    <p class="lead">Em cada pergunta, você escolhe entre duas opções. Cada opção mostra o que você ganha e o que você perde. No final, você vê qual candidato pensa mais parecido com você.</p>
+    <div class="actions top-space">${button('Começar <span aria-hidden="true">→</span>', 'start', '', true)}</div>
+    <p class="small muted top-space">São ${DATA.items.length} perguntas. Leva uns 5 minutos.</p>
+  </div><aside class="intro-preview" aria-label="Exemplo de dilema"><p class="eyebrow">Exemplo de pergunta</p><p class="quote">Menos horas por lei.<br>Ou horas combinadas?</p>
+    <div class="mini-choice"><b>Lei com limite menor</b>Você pode ganhar mais tempo de descanso. Mas contratar pode ficar mais caro.</div>
+    <div class="mini-choice"><b>Horas combinadas</b>Você pode ter horários do seu jeito. Mas quem tem pouca força pode aceitar mais horas.</div></aside></div>
+    <div class="intro-grid"><div><b>1 · Escolha</b><p>Leia o que você ganha e o que você perde. Se não souber, você pode dizer isso também.</p></div><div><b>2 · Veja o candidato mais parecido</b><p>O quiz compara suas respostas com o que cada plano propõe.</p></div><div><b>3 · Confira o trecho do plano</b><p>Cada posição mostra o trecho exato do plano de governo.</p></div></div>
+    <p class="small muted">Suas respostas não saem do seu celular ou computador. Quando você fecha a página, elas somem.</p></section>`;
+}
+function go(i) {
+  if (!Number.isInteger(i) || i < 0) { intro(); focusMain(); return; }
+  if (screen === 'question' && i > idx && !QuizCore.validAnswer(resp[DATA.items[idx].id])) {
+    announce('Escolha uma opção. Se não souber, toque em "Não consigo escolher".'); return;
+  }
+  if (i >= DATA.items.length) { revealed = true; result(); return; }
+  idx = i; screen = 'question'; question(); focusMain();
+}
+function question() {
+  const item = DATA.items[idx], answer = resp[item.id];
+  const decided = QuizCore.decided(answer), valid = QuizCore.validAnswer(answer);
+  const scenario = item.kind === 'scenario';
+  const stage = !cases.length ? 'Propostas dos planos' : scenario ? 'Parte 2 de 2 · Situações difíceis' : 'Parte 1 de 2 · Propostas dos planos';
+  const before = item.baseId ? resp[item.baseId] : null;
+  app.innerHTML = `<section aria-labelledby="question-title">
+    <div class="step-meta"><span>${stage}</span><span>Escolha ${idx+1} de ${DATA.items.length}</span></div>
+    <div class="progress" role="progressbar" aria-label="Progresso" aria-valuemin="0" aria-valuemax="${DATA.items.length}" aria-valuenow="${idx}"><div style="width:${100*idx/DATA.items.length}%"></div></div>
+    <div class="question-head"><p class="eyebrow">${esc(item.theme)}<span class="scenario-notice">${scenario ? 'Situação imaginada' : 'Proposta de um plano'}</span></p>
+    <h1 id="question-title" tabindex="-1">${esc(item.title)}</h1></div>
+    ${item.baseId ? `<div class="changed"><b>Agora, uma coisa muda.</b><p>${esc(item.change)}</p><p class="small muted">Na primeira situação: ${esc(answerLabel(findItem(item.baseId), before))}.</p></div>` : ''}
+    <p class="context">${esc(item.context)}</p><p class="constraint"><b>${scenario ? 'O que você precisa saber' : 'O que está em jogo'}:</b> ${esc(item.constraint)}</p>
+    <p class="question-prompt">${esc(item.question)}</p>
+    <div class="choices" role="group" aria-label="Alternativas">${['a','b'].map(side => {
+      const o = item.options[side], selected = answer?.choice === side;
+      return `<button type="button" class="choice${selected ? ' selected' : ''}" data-choice="${side}" aria-pressed="${selected}" aria-label="Opção ${side.toUpperCase()}: ${esc(o.title)}" aria-describedby="action-${side} benefit-${side} cost-${side}"><span class="choice-top"><span class="choice-letter">${side.toUpperCase()}</span><span class="choice-title">${esc(o.title)}</span></span><span class="choice-action" id="action-${side}">${esc(o.action)}</span><span class="tradeoff" id="benefit-${side}"><span class="tradeoff-label">✅ O que você ganha</span>${esc(o.benefit)}</span><span class="tradeoff cost" id="cost-${side}"><span class="tradeoff-label">⚠️ O que você perde</span>${esc(o.cost)}</span></button>`;
+    }).join('')}</div>
+    ${decided ? `<fieldset class="confidence"><legend>Quanta certeza você tem?</legend><div class="actions">${[['lean','Com ressalvas'],['strong','Com convicção']].map(([v,t])=>`<button type="button" class="pill" data-confidence="${v}" aria-pressed="${answer.confidence===v}">${t}</button>`).join('')}</div></fieldset>` : ''}
+    <div class="uncertainty" role="group" aria-label="Se não puder escolher">${[['undecided','Não consigo escolher'],['info','Faltam informações']].map(([v,t])=>`<button type="button" class="pill" data-choice="${v}" aria-pressed="${answer?.choice===v}">${t}</button>`).join('')}</div>
+    <p class="answer-help" id="answer-help">${!valid ? 'Escolha uma opção para continuar.' : decided ? 'Você pode mudar de ideia antes de continuar.' : 'Tudo bem. Esta resposta não conta a favor nem contra nenhum candidato.'}</p>
+    <div class="nav">${button(editing ? 'Cancelar edição' : idx===0 ? 'Início' : 'Voltar', editing ? 'cancel-edit' : 'back')}${button(editing ? 'Salvar e voltar ao resultado' : idx===DATA.items.length-1 ? 'Ver meu resultado' : 'Próxima <span aria-hidden="true">→</span>', 'next', `${valid?'':'disabled'} aria-describedby="answer-help"`, true)}</div>
+    </section>`;
+}
+function pick(choice) {
+  if (screen !== 'question' || !['a','b','undecided','info'].includes(choice)) return;
+  const item = DATA.items[idx], prior = resp[item.id];
+  resp[item.id] = ['a','b'].includes(choice) ? {choice, confidence: prior?.choice===choice ? prior.confidence : 'strong'} : {choice};
+  question(); app.querySelector?.(`[data-choice="${choice}"]`)?.focus?.({preventScroll:true});
+}
+function setConfidence(value) {
+  if (screen !== 'question' || !['lean','strong'].includes(value) || !QuizCore.decided(resp[DATA.items[idx].id])) return;
+  resp[DATA.items[idx].id].confidence = value;
+  question(); app.querySelector?.(`[data-confidence="${value}"]`)?.focus?.({preventScroll:true});
+}
+let editOriginal = null;
+function editQuestion(id) {
+  const i = DATA.items.findIndex(item => item.id === id);
+  if (i < 0) return;
+  editOriginal = resp[id] ? {...resp[id]} : null;
+  editing = true; screen = 'result'; go(i);
+}
+function cancelEdit() {
+  const id = DATA.items[idx].id;
+  if (editOriginal) resp[id] = editOriginal; else delete resp[id];
+  editing = false; result();
+}
+function pending(summary) {
+  screen = 'pending';
+  app.innerHTML = `<section class="card"><p class="eyebrow">Falta pouco</p><h1 tabindex="-1" class="top-space">Há perguntas pendentes.</h1><p class="lead">${summary.missing.length} de ${DATA.items.length} perguntas ainda estão sem resposta. Se não souber, toque em "Não consigo escolher".</p><div class="pending-list">${summary.missing.map(id=>{const i=findItem(id);return button(`${esc(i.title)} <span aria-hidden="true">→</span>`, 'edit', `data-id="${i.id}"`);}).join('')}</div><p class="small muted">Suas outras respostas continuam salvas nesta página.</p></section>`;
+  focusMain();
+}
+function valueCard(base) {
+  const answer = resp[base.id], chosen = QuizCore.decided(answer) ? base.options[answer.choice] : null;
+  const variant = DATA.items.find(i => i.baseId === base.id);
+  let variation = '';
+  if (variant) {
+    const state = QuizCore.variation(variant, resp);
+    const text = {changed:'Você mudou de ideia',kept:'Você manteve a mesma escolha',resolved:'Com a mudança, você conseguiu escolher',open:'Com a mudança, você ficou sem escolher'}[state];
+    variation = `<div class="variation"><b>${text}.</b><p>${esc(variant.change)}</p><p>Nova resposta: ${esc(answerLabel(variant, resp[variant.id]))}.</p>${button('Ver a pergunta com a mudança','edit',`data-id="${variant.id}"`)}</div>`;
+  }
+  return `<article class="value-card"><p class="eyebrow">${esc(base.theme)}</p><h3>${esc(base.title)}</h3>${chosen ? `<span class="badge">${confidenceLabel(answer)}</span><p class="priority">${esc(chosen.value)}</p><p class="small">${esc(chosen.action)}</p><p class="accepted-cost"><b>O que você aceitou perder:</b> ${esc(chosen.cost)}</p>` : `<p class="priority">${esc(answerLabel(base, answer))}</p><p class="small muted">Você não escolheu um lado aqui.</p>`}${variation}<div class="top-space">${button('Mudar resposta','edit',`data-id="${base.id}"`)}</div></article>`;
+}
+function leaderHeadline(comp) {
+  if (!comp.sufficient) return { title: 'Ainda falta base para mostrar um candidato.', text: `Para cada candidato, você precisa escolher A ou B em pelo menos ${comp.minBase} perguntas em que o plano dele tem posição clara. Mude algumas respostas "Não consigo escolher".` };
+  const names = comp.leaders.map(k => esc(planName(candidate(k))));
+  const top = comp.ranking[0];
+  if (comp.leaders.length > 1) return { title: `Empate: ${names.join(' e ')}.`, text: `Eles combinam com você na mesma medida: ${top.percent}%.` };
+  return { title: `Quem mais combina com você: ${names[0]}.`, text: `Vocês escolheram o mesmo lado em ${top.matches} de ${top.total} perguntas em que o plano dele tem posição clara.` };
+}
+function comparisonPanel(comp) {
+  const head = leaderHeadline(comp);
+  const ranking = comp.sufficient ? `<div class="ranking">${comp.ranking.map(r=>{
+    const c=candidate(r.key), leading=comp.leaders.includes(c.key);
+    return `<article class="rank-card${leading?' leading':''}"><div class="rank-top"><span class="plan-letter">${c.code}</span>${leading?`<span class="badge accent">${comp.leaders.length>1?'Empate':'Mais parecido com você'}</span>`:''}</div><p class="plan-name">${esc(planName(c))}</p><p class="rank-number">${r.percent}<small>%</small></p><p class="small muted">${r.matches} de ${r.total} perguntas com a mesma escolha</p><div class="meter" aria-hidden="true"><span style="width:${r.percent}%"></span></div><p class="small">${r.values.total ? `Propostas: ${r.proposals.matches} de ${r.proposals.total} · Valores: ${r.values.matches} de ${r.values.total}` : `${r.proposals.total} propostas comparadas`}</p></article>`;
+  }).join('')}</div>` : `<div class="empty">${head.text}</div>`;
+  return `<section class="card" id="planos" aria-labelledby="comparison-title"><div class="section-head"><div><p class="eyebrow">Candidatos</p><h2 id="comparison-title" tabindex="-1" class="top-space">${comp.sufficient ? 'Os três candidatos' : head.title}</h2><p class="small muted">A conta usa as perguntas em que o plano tem posição clara. Cada posição vem com o trecho do plano.</p></div>${button(revealed?'Ocultar nomes':'Mostrar nomes', 'reveal')}</div>${ranking}<div class="notice top-space"><p><b>Cada plano conta só nas perguntas em que ele tem posição.</b> Por isso o total muda de um plano para outro.</p><p>Um plano com poucas posições pode ter um número alto por sorte. Para evitar isso, a conta é (iguais + 1) ÷ (total + 2).</p><p>Em ${comp.differentiating} das suas respostas, os planos escolhem lados diferentes. São essas respostas que separam os candidatos.</p><p class="small">A sua certeza não muda a conta.</p></div></section>`;
+}
+function positionCard(item, c) {
+  const p = QuizCore.position(item, c.key);
+  const explicit = p.status === 'explicit';
+  const relation = explicit && QuizCore.decided(resp[item.id]) ? (p.side===resp[item.id].choice ? 'Escolheu igual a você' : 'Escolheu diferente de você') : '';
+  const status = explicit ? 'Posição clara' : p.status==='mixed' ? 'Fala do tema, mas não escolhe lado' : 'Não fala do tema';
+  return `<article class="position"><span class="badge${relation==='Escolheu igual a você'?' accent':relation?' warm':''}">${esc(relation || status)}</span><strong>${esc(planName(c))}</strong><p>${explicit ? esc(item.options[p.side].action) : esc(status)}</p>${button('Ver evidência', 'evidence', `data-id="${item.id}" data-key="${c.key}"`)}</article>`;
+}
+function responseRow(item, index, comp) {
+  const answer=resp[item.id], chosen=QuizCore.decided(answer)?item.options[answer.choice]:null;
+  const scored = item.kind==='proposal' || (item.kind==='scenario' && !item.baseId && item.valuePositions);
+  const counted = DATA.candidates.filter(c=>QuizCore.comparable(item,c.key));
+  let inclusion='';
+  if(!scored) inclusion='Esta pergunta só mostra se você muda de ideia. Ela não conta para os candidatos.';
+  else if(!QuizCore.decided(answer)) inclusion='Não conta: você não escolheu um lado.';
+  else inclusion=counted.length?`Conta para: ${counted.map(c=>esc(planName(c))).join(', ')}.`:'Nenhum plano tem posição clara aqui. Não conta para ninguém.';
+  return `<details class="response-row" data-item="${item.id}"><summary><span class="row-index">${String(index+1).padStart(2,'0')}</span><span class="row-title">${esc(item.title)}<span class="row-subtitle">${esc(answerLabel(item,answer))}${chosen?' · '+confidenceLabel(answer):''}</span></span></summary><div class="response-content"><p class="small muted">${esc(item.context)}</p><div class="your-choice top-space"><strong>Sua resposta: ${esc(answerLabel(item,answer))}</strong>${chosen?`<p>${esc(chosen.action)}</p><p><b>O que você perde:</b> ${esc(chosen.cost)}</p>`:''}</div>${scored?`<div class="positions">${DATA.candidates.map(c=>positionCard(item,c)).join('')}</div>`:''}<p class="small muted top-space">${inclusion}</p><div class="top-space">${button('Revisar esta resposta','edit',`data-id="${item.id}"`)}</div></div></details>`;
+}
+function responseExplorer(comp) {
+  const visible=DATA.items.filter(i=>filter==='all'||filter===i.kind||filter==='open'&&!QuizCore.decided(resp[i.id]));
+  return `<section class="card" id="temas" aria-labelledby="explore-title"><div class="section-head"><div><p class="eyebrow">Suas respostas</p><h2 id="explore-title" class="top-space">Veja pergunta por pergunta</h2><p class="small muted">Toque numa pergunta para ver o que cada plano diz. Você também pode mudar a resposta.</p></div></div><div class="filterbar" role="group" aria-label="Filtrar respostas">${[['all','Todas'],['proposal','Propostas'],...(cases.length?[['scenario','Situações imaginadas']]:[]),['open','Sem resposta']].map(([v,t])=>`<button type="button" class="pill" data-filter="${v}" aria-pressed="${filter===v}">${t}</button>`).join('')}</div><div class="response-list">${visible.length?visible.map(i=>responseRow(i,DATA.items.indexOf(i),comp)).join(''):'<p class="empty">Nenhuma pergunta aqui.</p>'}</div></section>`;
+}
+function result(keepPosition=false) {
+  const summary=QuizCore.progress(DATA.items,resp);
+  if(summary.missing.length){pending(summary);return;}
+  screen='result';editing=false;idx=DATA.items.length;
+  const comp=QuizCore.compare(DATA,resp);
+  app.innerHTML=`<div class="stack"><section class="card result-hero"><p class="eyebrow">Seu resultado</p><h1 tabindex="-1">${leaderHeadline(comp).title}</h1><p class="lead">${leaderHeadline(comp).text}</p><div class="stats"><div class="stat"><strong>${summary.decided}</strong><span>perguntas com A ou B</span></div><div class="stat"><strong>${summary.undecided}</strong><span>sem escolha</span></div><div class="stat"><strong>${summary.info}</strong><span>faltou informação</span></div><div class="stat"><strong>${comp.total}</strong><span>perguntas comparadas com os planos</span></div></div><nav class="actions top-space" aria-label="Seções do resultado"><a class="button quiet" href="#planos">Ver os três candidatos ↓</a>${cases.length?'<a class="button quiet" href="#valores">O que você priorizou ↓</a>':''}<a class="button quiet" href="#temas">Ver pergunta por pergunta ↓</a></nav></section>
+  ${comparisonPanel(comp)}
+  ${cases.length?`<section class="card" id="valores"><div class="section-head"><div><p class="eyebrow">Seu perfil de valores</p><h2 class="top-space">O que você protegeu nas situações difíceis</h2><p class="small muted">São cinco situações imaginadas. Em duas delas, uma coisa muda. Assim você vê se muda de ideia.</p></div></div><div class="scenario-grid">${cases.map(valueCard).join('')}</div></section>`:''}
+  ${responseExplorer(comp)}
+  <section class="card method"><details><summary>Como a conta é feita</summary><ol><li>Todas as perguntas vêm de propostas dos planos de governo. Um plano só recebe posição quando o texto dele escolhe um lado com clareza.</li><li>Cada posição mostra o trecho exato do plano e a linha onde ele está. Se o plano não fala do tema, ele não recebe posição.</li><li>Cada plano conta só nas perguntas em que ele tem posição. A conta é (escolhas iguais + 1) ÷ (total + 2). Assim, um plano com poucas posições não chega a 0% ou 100% por sorte.</li><li>Para mostrar o candidato mais parecido, cada plano precisa de pelo menos três perguntas comparadas. Se dois empatam, o quiz mostra o empate.</li><li>A sua certeza não muda a conta. "Não consigo escolher" e "Faltam informações" não contam. O quiz só mostra perguntas em que os planos escolhem lados diferentes. Perguntas em que os três escolhem o mesmo lado ficaram de fora.</li></ol><p>Os planos vêm dos arquivos desta pasta. O quiz não garante que eles são a versão oficial do TSE. Os trechos ficam dentro deste arquivo. O PDF completo só abre se a pasta original estiver junto.</p><p>Os nomes ficam escondidos durante as perguntas. Assim o nome não influencia a sua resposta. Algumas propostas podem mostrar quem é o autor.</p></details></section>
+  <section class="card"><h2>E agora?</h2><p class="muted small top-space">Você pode mudar qualquer resposta acima. O resultado muda junto.</p><div class="actions top-space">${button('Copiar resumo','copy','',true)}${button('Começar de novo','reset')}</div><div id="copy-feedback" aria-live="polite"></div></section></div>`;
+  if(!keepPosition) focusMain();
+}
+function showEvidence(id,key) {
+  const item=findItem(id), c=candidate(key);
+  const p=item && c ? QuizCore.position(item,c.key) : null, dialog=document.getElementById('evidence-dialog');
+  if(!p) return;
+  const close=button('Fechar','close-dialog');
+  if(!revealed) {
+    dialog.innerHTML=`<div class="dialog-head"><h2 id="evidence-title">O trecho mostra quem escreveu o plano</h2>${close}</div><p>Para ver o trecho, o quiz precisa mostrar os nomes. Suas respostas continuam salvas.</p><div class="top-space">${button('Mostrar nomes e abrir o trecho','reveal-source',`data-id="${id}" data-key="${key}"`,true)}</div>`;
+  } else {
+    const source=p.source;
+    dialog.innerHTML=`<div class="dialog-head"><div><p class="eyebrow">${esc(planName(c))}</p><h2 id="evidence-title">${esc(item.title)}</h2></div>${close}</div><span class="badge">${p.status==='explicit'?'Posição clara':p.status==='mixed'?'Fala do tema, mas não escolhe lado':'Não fala do tema'}</span><p class="top-space"><b>Como lemos o trecho:</b> ${esc(p.reason)}</p>${source?`<blockquote class="source-quote">${esc(p.quote)}</blockquote><p class="source-meta">${esc(source.file)} · linhas ${source.start}–${source.end} · página ${source.page} do PDF local</p><details class="top-space"><summary>Ver o texto em volta</summary><pre class="source-text">${esc(source.excerpt)}</pre></details><p class="top-space"><a href="_trabalho/${esc(source.file.replace(/\.txt$/,'.pdf'))}#page=${source.page}" target="_blank" rel="noopener">Abrir o PDF ↗</a></p><p class="source-meta top-space">O PDF só abre se a pasta original estiver junto com este arquivo.</p>`:'<p class="notice top-space">O plano não tem posição clara sobre esta pergunta. Por isso ele não conta aqui.</p>'}`;
+  }
+  if(!dialog.open) dialog.showModal();
+}
+function copyText() {
+  const comp=QuizCore.compare(DATA,resp), summary=QuizCore.progress(DATA.items,resp);
+  const head=leaderHeadline(comp).title.replace(/<[^>]+>/g,'');
+  const rankings=comp.sufficient ? comp.ranking.map(r=>`${planName(candidate(r.key))}: ${r.percent}% (${r.matches} de ${r.total} escolhas no mesmo lado).`).join('\n') : 'Base insuficiente para apontar um candidato.';
+  return `Entre escolhas — planos de governo 2026\n${head}\n\n${rankings}\n\n${summary.decided} perguntas com A ou B; ${summary.undecided} em aberto; ${summary.info} com informação insuficiente. Cada plano é comparado nas escolhas em que tem posição clara no documento.`;
+}
+async function copyResult() {
+  const text=copyText(), feedback=document.getElementById('copy-feedback');
+  try {
+    if(!navigator.clipboard?.writeText) throw new Error('Clipboard indisponível');
+    await navigator.clipboard.writeText(text);
+    feedback.innerHTML='<p class="copy-feedback">Resumo copiado.</p>';
+  } catch {
+    feedback.innerHTML=`<label class="small top-space" for="copy-text">Selecione e copie o resumo:</label><textarea id="copy-text" class="copy-area" readonly>${esc(text)}</textarea>`;
+    document.getElementById('copy-text')?.select?.();
+  }
+}
+function resetQuiz() { for(const key of Object.keys(resp)) delete resp[key]; revealed=false;filter='all';editOriginal=null;intro();focusMain(); }
+function handleClick(event) {
+  const target=event.target.closest?.('button');
+  if(!target || target.disabled) return;
+  const {choice,confidence,filter:nextFilter,action,id,key}=target.dataset;
+  if(choice){pick(choice);return;}
+  if(confidence){setConfidence(confidence);return;}
+  if(nextFilter){filter=nextFilter;result(true);app.querySelector(`[data-filter="${filter}"]`)?.focus({preventScroll:true});return;}
+  switch(action){
+    case 'start':go(0);break;
+    case 'back':go(idx-1);break;
+    case 'next':if(editing){if(QuizCore.validAnswer(resp[DATA.items[idx].id])) result();}else go(idx+1);break;
+    case 'edit':editQuestion(id);break;
+    case 'cancel-edit':cancelEdit();break;
+    case 'reveal':revealed=!revealed;result(true);app.querySelector('[data-action="reveal"]')?.focus({preventScroll:true});break;
+    case 'evidence':showEvidence(id,key);break;
+    case 'close-dialog':document.getElementById('evidence-dialog').close();break;
+    case 'reveal-source':revealed=true;result(true);showEvidence(id,key);break;
+    case 'copy':copyResult();break;
+    case 'reset':resetQuiz();break;
+  }
+}
+app.addEventListener?.('click',handleClick);
+document.getElementById('evidence-dialog').addEventListener?.('click',handleClick);
+intro();
+
+  </script>
+</body>
+</html>
